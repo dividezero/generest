@@ -13,6 +13,11 @@ class GenericController(private val genericStoreService: GenericStoreService) {
         return genericStoreService.storeData(entity, id.toInt(), body)
     }
 
+    @DeleteMapping("/{entity}/{id}")
+    fun deleteStore(@PathVariable(value = "entity") entity: String, @PathVariable(value = "id") id: String): GenericData? {
+        return genericStoreService.removeData(entity, id.toInt())
+    }
+
     @PostMapping("/{entity}")
     fun postStore(@PathVariable(value = "entity") entity: String, @RequestBody body: String): GenericData {
         return genericStoreService.storeData(entity, null, body)

@@ -31,6 +31,17 @@ class GenericRepository {
         return result
     }
 
+    fun removeData(entity: String, id: Int): GenericData? {
+        val entityStore = store[entity]
+        var result: GenericData? = null
+
+        if (entityStore != null && entityStore[id] != null) {
+            result = GenericData(entity, id, entityStore[id])
+            entityStore.remove(id)
+        }
+        return result
+    }
+
     fun getByEntity(entity: String): HashMap<Int, String>? {
         return store[entity]
     }

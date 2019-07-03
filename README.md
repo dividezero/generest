@@ -2,7 +2,7 @@
 
 Generic rest to store stuff in memory
 
-PUT GET data
+PUT GET DELETE data
 ```
 localhost:6012/{entity_name}/{id}
 ```
