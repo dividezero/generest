@@ -8,6 +8,19 @@ class GenericRepository {
 
     val store: HashMap<String, HashMap<Int, String>> = HashMap()
 
+    fun getNewId(entity: String): Int {
+        val entityStore = store[entity] ?: return 0
+
+        val keyList = ArrayList(entityStore.keys)
+
+        var max = 0
+        for (key in keyList) {
+            if (key > max)
+                max = key
+        }
+        return max + 1
+    }
+
     fun getData(entity: String, id: Int): GenericData? {
         val entityStore = store[entity]
         var result: GenericData? = null
@@ -18,14 +31,23 @@ class GenericRepository {
         return result
     }
 
-    fun saveData(entity: String, id: Int, data: String): GenericData {
+    fun getByEntity(entity: String): HashMap<Int, String>? {
+        return store[entity]
+    }
+
+    fun saveData(entity: String, id: Int?, data: String): GenericData {
         var entityStore = store[entity]
+        var itemId: Int? = id
+
+        if (id == null) {
+            itemId = getNewId(entity)
+        }
         if (entityStore != null) {
-            entityStore[id] = data
+            entityStore[itemId!!] = data
         } else {
-            entityStore = hashMapOf(id to data)
+            entityStore = hashMapOf(itemId!! to data)
             store[entity] = entityStore
         }
-        return GenericData(entity, id, data)
+        return GenericData(entity, itemId, data)
     }
 }

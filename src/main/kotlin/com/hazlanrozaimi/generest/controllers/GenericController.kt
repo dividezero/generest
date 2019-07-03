@@ -13,9 +13,19 @@ class GenericController(private val genericStoreService: GenericStoreService) {
         return genericStoreService.storeData(entity, id.toInt(), body)
     }
 
+    @PostMapping("/{entity}")
+    fun postStore(@PathVariable(value = "entity") entity: String, @RequestBody body: String): GenericData {
+        return genericStoreService.storeData(entity, null, body)
+    }
+
     @GetMapping("/{entity}/{id}")
     fun getStore(@PathVariable(value = "entity") entity: String, @PathVariable(value = "id") id: String): GenericData? {
         return genericStoreService.getData(entity, id.toInt())
+    }
+
+    @GetMapping("/{entity}")
+    fun getStore(@PathVariable(value = "entity") entity: String): HashMap<Int, String>? {
+        return genericStoreService.getByEntity(entity)
     }
 
 }

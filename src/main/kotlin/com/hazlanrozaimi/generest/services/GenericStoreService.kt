@@ -11,7 +11,11 @@ class GenericStoreService(private val genericRepository: GenericRepository) {
         return genericRepository.getData(entity, id)
     }
 
-    fun storeData(entity: String, id: Int, data: String): GenericData {
+    fun getByEntity(entity: String): HashMap<Int, String>? {
+        return genericRepository.getByEntity(entity)
+    }
+
+    fun storeData(entity: String, id: Int?, data: String): GenericData {
         return genericRepository.saveData(entity, id, data)
     }
 }
